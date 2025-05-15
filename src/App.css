@@ -1,0 +1,65 @@
+.ant-layout-sider-trigger {
+  background-color: #16A349 !important;
+}
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: #16A349 !important;
+}
+.ant-input:focus,
+.ant-input-focused {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.custom-pagination {
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.custom-pagination .ant-pagination-item {
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-pagination .ant-pagination-item-active {
+  background-color: #0a0e16;
+  color: black;
+}
+.ant-pagination-item-active a {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+/* Add rounded corners to the segmented control container */
+.ant-segmented {
+  border-radius: 100px !important;
+}
+
+/* Add background color and rounded corners to the segmented control group */
+.ant-segmented-group {
+  border-radius: 100px !important;
+  padding: 3px 10px;
+  /* width: 400px !important; */
+  display: flex;
+  justify-content: space-between;
+  background-color: #FFFFFF !important;
+}
+
+/* Style individual segmented items */
+.ant-segmented-item {
+  border-radius: 100px !important;
+}
+
+/* Style the selected segmented item */
+.ant-segmented-item-selected {
+  background-color: #F6F6F6 !important; /* Selected item background color */
+  border-radius: 100px !important;
+}
+
+.ant-upload .ant-upload-select{
+  width: 100% !important;
+}
+.ant-upload-list .ant-upload-list-picture-card{
+  width: 100% !important;
+}
