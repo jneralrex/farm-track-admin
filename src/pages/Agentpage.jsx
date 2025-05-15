@@ -18,8 +18,7 @@ const AgentPage = () => {
     headers: { Authorization: `Bearer ${storedUser.token}` },
   };
 
-  useEffect(() => {
-    const getLandData = async () => {
+  const getLandData = async () => {
       try {
         const res = await axios.get(`${base_url}/admin/users/agent`, config);
         if (Array.isArray(res.data.data)) {
@@ -29,8 +28,7 @@ const AgentPage = () => {
         setError(err.message);
       }
     };
-    getLandData();
-  }, []);
+
 
   const toggleDropdown = (index) => {
     setDropdownVisible((prev) => (prev === index ? null : index));
@@ -49,31 +47,38 @@ const AgentPage = () => {
     };
   }, []);
 
-const giveApproval = async (id) => {
-  try {
-    const res = await axios.put(
-      `${base_url}/admin/access/${id}`,
-      { action: "approve" }, // ✅ Boolean
-      config
-    );
-    console.log("Approved:", res.data);
-  } catch (err) {
-    console.error("Approval error:", err);
-  }
-};
+  const giveApproval = async (id) => {
+    try {
+      const res = await axios.put(
+        `${base_url}/admin/access/${id}`,
+        { action: "approve" }, 
+        config
+      );
+      getLandData();
 
-const giveDecline = async (id) => {
-  try {
-    const res = await axios.put(
-      `${base_url}/admin/access/${id}`,
-      { action: "decline" }, // ✅ Boolean
-      config
-    );
-    console.log("Declined:", res.data);
-  } catch (err) {
-    console.error("Decline error:", err);
-  }
-};
+    } catch (err) {
+      console.error("Approval error:", err);
+    }
+  };
+
+  const giveDecline = async (id) => {
+    try {
+      const res = await axios.put(
+        `${base_url}/admin/access/${id}`,
+        { action: "decline" }, 
+        config
+      );
+          getLandData();
+
+    } catch (err) {
+      console.error("Decline error:", err);
+    }
+  };
+
+    useEffect(() => {
+    
+    getLandData();
+  }, []);
 
 
   return (
@@ -104,6 +109,7 @@ const giveDecline = async (id) => {
                 <th className="border border-gray-300 p-2 text-left">Phone</th>
                 <th className="border border-gray-300 p-2 text-left">State </th>
                 <th className="border border-gray-300 p-2 text-left">Lga</th>
+                <th className="border border-gray-300 p-2 text-left">Status </th>
                 <th className="border border-gray-300 p-2 text-left">
                   Actions
                 </th>
@@ -116,7 +122,7 @@ const giveDecline = async (id) => {
                     {index + 1 || "N/A"}
                   </td>
                   <td className="border border-gray-300 p-2">
-                    {data.profile?.firstName + " " + data.profile?.lastName + " " + data?._id ||
+                    {data.profile?.firstName + " " + data.profile?.lastName ||
                       "N/A"}
                   </td>
                   <td className="border border-gray-300 p-2">
@@ -131,51 +137,46 @@ const giveDecline = async (id) => {
                   <td className="border border-gray-300 p-2">
                     {data?.location?.lga || "N/A"}
                   </td>
-                  {/* <td className="border border-gray-300 p-2">
-                    <Link
-                      to={`/single-agent/${data._id}`}
-                      className="text-green-500 hover:underline"
-                    >
-                      view
-                    </Link>
-                  </td> */}
-                 <td className="border border-gray-300 p-2">
-  <div className="relative dropdown-container">
-    <Button className="bg-gray-200" onClick={() => toggleDropdown(index)}>
-      Actions
-    </Button>
-    {dropdownVisible === index && (
-      <div className="absolute bg-white border rounded shadow-lg mt-1 z-10">
-        <ul className="py-1">
-          <li>
-            <Link
-              to={`/single-agent/${data._id}`}
-              className="block px-4 py-2 text-green-500 hover:bg-gray-100"
-            >
-              View
-            </Link>
-          </li>
-          <li>
-            <button
-              onClick={() => giveApproval(data._id)}
-              className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100"
-            >
-              Approve
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => giveDecline(data._id)}
-              className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
-            >
-              Decline
-            </button>
-          </li>
-        </ul>
-      </div>
-    )}
-  </div>
-</td>
+                     <td className="border border-gray-300 p-2">
+                    {data?.status === true ? <span className="text-green-400">Approved</span> : <span className="text-red-400">Declined</span> }
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    <div className="relative dropdown-container">
+                      <Button className="bg-gray-200" onClick={() => toggleDropdown(index)}>
+                        Actions
+                      </Button>
+                      {dropdownVisible === index && (
+                        <div className="absolute bg-white border rounded shadow-lg mt-1 z-10">
+                          <ul className="py-1">
+                            <li>
+                              <Link
+                                to={`/single-agent/${data._id}`}
+                                className="block px-4 py-2 text-green-500 hover:bg-gray-100"
+                              >
+                                View
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => giveApproval(data._id)}
+                                className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100"
+                              >
+                                Approve
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => giveDecline(data._id)}
+                                className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                              >
+                                Decline
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </td>
 
                 </tr>
               ))}

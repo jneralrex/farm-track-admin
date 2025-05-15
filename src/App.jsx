@@ -21,7 +21,7 @@ function App() {
       <Route path="" element={<DashbordLayout />}>
         <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/famers" element={<FarmersManagement />} />
+        <Route path="/farmers" element={<FarmersManagement />} />
         <Route path="/lands" element={<LandPage />} />
         <Route path="/agents" element={<AgentPage />} />
         <Route path="/requests" element={<RequestPage />} />

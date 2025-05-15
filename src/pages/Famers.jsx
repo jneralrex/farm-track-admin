@@ -10,6 +10,8 @@ const FarmersManagement = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
+  const [dropdownVisible, setDropdownVisible] = useState(null);
+
   const [farmersData, setFarmersData] = useState([]);
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -59,14 +61,59 @@ const FarmersManagement = () => {
     setIsModalOpen(false);
   };
 
+  const toggleDropdown = (index) => {
+    setDropdownVisible((prev) => (prev === index ? null : index));
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (!event.target.closest(".dropdown-container")) {
+        setDropdownVisible(null);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
+  const giveApproval = async (id) => {
+    try {
+      const res = await axios.put(
+        `${base_url}/admin/access/${id}`,
+        { action: "approve" },
+        config
+      );
+      getfarmers();
+
+    } catch (err) {
+      console.error("Approval error:", err);
+    }
+  };
+
+  const giveDecline = async (id) => {
+    try {
+      const res = await axios.put(
+        `${base_url}/admin/access/${id}`,
+        { action: "decline" },
+        config
+      );
+      getfarmers();
+
+    } catch (err) {
+      console.error("Decline error:", err);
+    }
+  };
+
   useEffect(() => {
     getfarmers();
   }, []);
 
   return (
     <div className="bg-white rounded-md p-3">
-       <div className="flex flex-col md:flex-row justify-between items-center">
-       <h1 className="text-[12px] md:text-lg font-semibold">All farmers</h1>
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <h1 className="text-[12px] md:text-lg font-semibold">All farmers</h1>
         <div className="flex gap-5">
           <div className="flex items-center rounded-full w-full border px-3">
             <img src={search} className="w-4 h-4 cursor-pointer" />
@@ -91,6 +138,8 @@ const FarmersManagement = () => {
                 <th className="border border-gray-300 p-2 text-left">Phone</th>
                 <th className="border border-gray-300 p-2 text-left">State </th>
                 <th className="border border-gray-300 p-2 text-left">Lga</th>
+                <th className="border border-gray-300 p-2 text-left">Status </th>
+
                 <th className="border border-gray-300 p-2 text-left">
                   Actions
                 </th>
@@ -119,15 +168,47 @@ const FarmersManagement = () => {
                   <td className="border border-gray-300 p-2">
                     {farmer?.location?.lga || "N/A"}
                   </td>
+
+                   <td className="border border-gray-300 p-2">
+                    {farmer?.status === true ? <span className="text-green-400">Approved</span> : <span className="text-red-400">Declined</span> }
+                  </td>
+
                   <td className="border border-gray-300 p-2">
-                    <td className="border border-gray-300 p-2">
-                      <Link
-                        to={`/single-farmer/${farmer._id}`}
-                        className="text-green-500 hover:underline"
-                      >
-                        view
-                      </Link>
-                    </td>
+                    <div className="relative dropdown-container">
+                      <Button className="bg-gray-200" onClick={() => toggleDropdown(index)}>
+                        Actions
+                      </Button>
+                      {dropdownVisible === index && (
+                        <div className="absolute bg-white border rounded shadow-lg mt-1 z-10">
+                          <ul className="py-1">
+                            <li>
+                              <Link
+                                to={`/single-farmer/${farmer._id}`}
+                                className="block px-4 py-2 text-green-500 hover:bg-gray-100"
+                              >
+                                View
+                              </Link>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => giveApproval(farmer._id)}
+                                className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100"
+                              >
+                                Approve
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => giveDecline(farmer._id)}
+                                className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                              >
+                                Decline
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
