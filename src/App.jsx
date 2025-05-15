@@ -17,9 +17,9 @@ import SingleLand from "./pages/SingleLand";
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<AdminLogin/>}/>
+      <Route path="/" element={<AdminLogin/>}/>
       <Route path="" element={<DashbordLayout />}>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
+        {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/farmers" element={<FarmersManagement />} />
         <Route path="/lands" element={<LandPage />} />
