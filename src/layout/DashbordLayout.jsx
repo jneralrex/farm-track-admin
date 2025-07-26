@@ -15,6 +15,8 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { CiSettings, CiUser } from "react-icons/ci";
 import { HiMiniUsers } from "react-icons/hi2";
 import { RiCouponLine } from "react-icons/ri";
+import logo from "../assets/coat.png";
+
 
 const { Sider, Content, Header } = Layout;
 
@@ -80,16 +82,17 @@ const DashboardLayout = () => {
         collapsible
         collapsed={collapsed}
         onCollapse={setCollapsed}
-        className="bg-[#16A349] fixed left-0 top-0 bottom-0"
+        className="bg-[#2b2f39] fixed left-0 top-0 bottom-0"
         width={250}
         style={{ zIndex: 1000 }}
       >
-        <div className="p-4 flex items-center text-xl font-bold">
-          <span className={`text-white ${collapsed ? "text-[20px]" : "text-2xl"}`}>Agric Portal</span>
+       <div className={`"p-4 flex items-center text-xl font-bold" ${collapsed ? "flex-col" : "flex-row justify-around my-2"}`}>
+          <img src={logo} alt="" srcset="" className={`${collapsed ? "size-10" : "size-20"} `}/>
+          <span className={`text-white ${collapsed ? "text-[16px]" : "text-2xl"}`}>FMA<span className="text-[#16a349]">FS</span></span>
         </div>
         <Menu
           theme="dark"
-          className="bg-[#16A349]"
+          className="bg-[#2b2f39]"
           selectedKeys={[location.pathname]}
           mode="inline"
           items={items}
