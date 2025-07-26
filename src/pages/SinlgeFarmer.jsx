@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PageLaoding from '../components/PageLoading';
 
 const SingleFarmer = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -25,7 +26,7 @@ const SingleFarmer = () => {
     }, [id]);
 
     if (!singleFarmer) {
-        return <p>Loading farmer details...</p>;
+        return <PageLaoding />; 
     }
 
     return (

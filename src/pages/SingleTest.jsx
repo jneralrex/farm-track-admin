@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import PageLaoding from "../components/PageLoading";
 
 const SingleTest = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -79,9 +80,7 @@ const SingleTest = () => {
             </p>
           </div>
         ) : (
-          <p className="text-center text-gray-500 text-sm sm:text-base">
-            Loading data...
-          </p>
+         <PageLaoding />
         )}
       </div>
     </div>

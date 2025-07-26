@@ -147,7 +147,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="mt-2 grid grid-cols-2 md:grid-cols-4 items-center justify-between flex-wrap gap-3">
+      <div className="mt-2 grid grid-cols-2 lg:grid-cols-4 items-center justify-between flex-wrap gap-3">
         {data.map((e, index) => (
           <div
             className="bg-white w-full mt-3 p-2 md:p-4 rounded-md flex flex-col h-[115px] md:h-[inherit]"
@@ -416,7 +416,7 @@ const Dashboard = () => {
       </div>
 
       <div className="mt-[20px]">
-        <p className="w-full text-center"> Agents</p>
+        <p className="w-full text-center"> Land</p>
         {landData.length == 0 ? (
           <PageLaoding/>
         ) : (
