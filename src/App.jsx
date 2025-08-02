@@ -13,6 +13,7 @@ import SingleTest from "./pages/SingleTest";
 import SingleFarmer from "./pages/SinlgeFarmer";
 import SingleAgent from "./pages/SingleAgent";
 import SingleLand from "./pages/SingleLand";
+import AdminSignup from "./pages/NewAdmin";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/single-request/:id" element={<SingleTest />} />
         <Route path="/single-farmer/:id" element={<SingleFarmer />} />
         <Route path="/land-details/:id" element={<SingleLand />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/new-admin" element={<AdminSignup />} />
         <Route path="/change-password" element={<ChangePassword />} />
       </Route>
     </Routes>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext.jsx";
 import { FaSpinner } from "react-icons/fa";
 import logo from "../assets/coat.png";
@@ -19,19 +19,22 @@ const AdminLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("")
     setLoading(true);
     try {
       const res = await axios.post(
         `${base_url}/auth/login`,
         adminCredentials
       );
-      setLoading(false);
       const userData = res.data.data;
       dispatch({ type: 'SET_USER', payload: userData });
       localStorage.setItem("user", JSON.stringify(userData));  // Persist user data
       navigate("/dashboard")
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred during login.");
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -79,7 +82,14 @@ const AdminLogin = () => {
                 required
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <div className="flex justify-between items-center mt-4">
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+              <Link to="/change-password" className="text-blue-500 text-sm">
+              <div className="text-blue-500 text-sm">
+                  Forgot Password?
+              </div>
+              </Link>
+            </div>
             {loading ? (
               <div className="flex justify-center items-center">
                 <FaSpinner className="animate-spin text-green-500" />

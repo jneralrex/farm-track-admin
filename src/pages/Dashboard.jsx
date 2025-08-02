@@ -66,7 +66,7 @@ const Dashboard = () => {
       const getAgents = async () => {
         try {
           const res = await axios.get(`${base_url}/admin/users/agent`, config);
-          console.log("agent",res.data.data)
+          console.log("agent", res.data.data)
           if (Array.isArray(res.data.data)) {
             setAgentsData(res.data.data);
           }
@@ -178,13 +178,13 @@ const Dashboard = () => {
           {farmersData.length > 0 ? (
             <FarmBarChart farmersData={farmersData} />
           ) : (
- <PageLaoding/>          )}
+            <PageLaoding />)}
         </div>
         <div className="w-full bg-white rounded-md shadow-lg p-5 max-h-[400px] ">
           {agentsData.length > 0 ? (
             <AgentBarChart agentsData={agentsData} />
           ) : (
- <PageLaoding/>          )}
+            <PageLaoding />)}
         </div>
       </div>
 
@@ -193,13 +193,13 @@ const Dashboard = () => {
           {testData.length > 0 ? (
             <TestBarChart testData={testData} />
           ) : (
- <PageLaoding/>          )}
+            <PageLaoding />)}
         </div>
         <div className="w-full bg-white rounded-md shadow-lg p-5  max-h-[400px]">
           {landData.length > 0 ? (
             <LandBarChart landData={landData} />
           ) : (
- <PageLaoding/>          )}
+            <PageLaoding />)}
         </div>
       </div>
 
@@ -284,7 +284,7 @@ const Dashboard = () => {
       <div className="mt-[20px]">
         <p className="w-full text-center"> Famers</p>
         {farmersData.length == 0 ? (
-          <PageLaoding/>
+          <PageLaoding />
         ) : (
           <div className="overflow-auto">
             <table className="min-w-full border-collapse border border-gray-200">
@@ -349,7 +349,7 @@ const Dashboard = () => {
       <div className="mt-[20px]">
         <p className="w-full text-center"> Agents</p>
         {agentsData.length == 0 ? (
-          <PageLaoding/>
+          <PageLaoding />
         ) : (
           <div className="overflow-auto">
             <table className="min-w-full border-collapse border border-gray-200">
@@ -418,7 +418,7 @@ const Dashboard = () => {
       <div className="mt-[20px]">
         <p className="w-full text-center"> Land</p>
         {landData.length == 0 ? (
-          <PageLaoding/>
+          <PageLaoding />
         ) : (
           <div className="overflow-auto">
             <table className="min-w-full border-collapse border border-gray-200">
@@ -437,7 +437,7 @@ const Dashboard = () => {
                     Coordinate
                   </th>
                   <th className="border border-gray-300 p-2 text-left">
-                   Ownership
+                    Ownership
                   </th>
                   <th className="border border-gray-300 p-2 text-left">Total area</th>
                   <th className="border border-gray-300 p-2 text-left">
@@ -461,7 +461,7 @@ const Dashboard = () => {
                       {land?.currentCrop || "N/A"}
                     </td>
                     <td className="border border-gray-300 p-2">
-                      {land?.location?.state || "N/A"} 
+                      {land?.location?.state || "N/A"}
                     </td>
                     <td className="border border-gray-300 p-2">
                       {land?.location?.coordinates?.latitude || "N/A"}
@@ -470,9 +470,9 @@ const Dashboard = () => {
                       {land?.ownership || "N/A"}
                     </td>
                     <td className="border border-gray-300 p-2">
-                   {`${land.totalArea.value},${land.totalArea.unit}` || "N/A"}
+                      {`${land.totalArea.value},${land.totalArea.unit}` || "N/A"}
                     </td>
-                   
+
                     <td className="border border-gray-300 p-2">
                       <Link
                         to={`/land-details/${land._id}`}

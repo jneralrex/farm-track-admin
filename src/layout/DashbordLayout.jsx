@@ -34,6 +34,7 @@ const items = [
   getItem("Lands", "/lands", <RiCouponLine className="w-4" />),
   getItem("Agents", "/agents", <CiUser className="w-4" />),
   getItem("Test Requests", "/requests", <CiUser className="w-4" />),
+  getItem("New Admin", "/new-admin", <CiUser className="w-4" />),
   getItem(
     "Change Password",
     "/change-password",
